@@ -43,4 +43,7 @@ TagManager:
     locked: 0
   m_RenderingLayers:
   - Default
+  - Foreground
+  - Background
+  - Sky
   m_MigratedRenderPipelines: []
