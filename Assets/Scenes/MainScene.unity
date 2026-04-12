@@ -169,7 +169,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -193,12 +193,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cf755bf7d8dbde4dbd3aeafa2d0702b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 15
-  maxSpeed: 4
-  sx: 0
-  sy: 0
-  friction: 15
-  isSlippery: 1
+  moveSpeed: 4
+  maxSpeed: 6
+  friction: 10
+  rb: {fileID: 170917355}
+  jumpHeight: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  isGrounded: 0
   playerControls:
     m_Name: Player Controls
     m_Type: 0
