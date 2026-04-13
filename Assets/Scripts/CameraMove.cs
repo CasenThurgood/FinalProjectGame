@@ -12,6 +12,7 @@ public class CameraMove : MonoBehaviour
     [Header("Bounds")]
     public float leftBound;
     public float rightBound;
+    public float screenWidth;
 
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -30,11 +31,11 @@ public class CameraMove : MonoBehaviour
 
         if (localPosX > rightBound)
         {
-            cameraPosition.position = new Vector3(cameraPosition.position.x + 21.6f, cameraPosition.position.y, cameraPosition.position.z);
+            cameraPosition.position = new Vector3(cameraPosition.position.x + screenWidth, cameraPosition.position.y, cameraPosition.position.z);
         }
         else if (localPosX < leftBound)
         {
-            cameraPosition.position = new Vector3(cameraPosition.position.x - 21.6f, cameraPosition.position.y, cameraPosition.position.z);
+            cameraPosition.position = new Vector3(cameraPosition.position.x - screenWidth, cameraPosition.position.y, cameraPosition.position.z);
         }
     }
 }
