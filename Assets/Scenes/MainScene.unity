@@ -95782,7 +95782,7 @@ MonoBehaviour:
   topBound: 6
   bottomBound: -6
   screenWidth: 21.6
-  screenHeight: 10.4
+  screenHeight: 11.4
   target: {fileID: 183824969}
   smoothTime: 0.6
   offset: {x: 0, y: 0, z: -10}

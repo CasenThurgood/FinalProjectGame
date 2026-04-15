@@ -56,11 +56,11 @@ public class CameraMove : MonoBehaviour
 
         if (localPosY > topBound)
         {
-            target.position = new UnityEngine.Vector3(target.position.x, target.position.y + screenHeight +1, target.position.z);
+            target.position = new UnityEngine.Vector3(target.position.x, target.position.y + screenHeight, target.position.z);
         }
         else if (localPosY < bottomBound)
         {
-            target.position = new UnityEngine.Vector3(target.position.x, target.position.y - screenHeight - 1, target.position.z);
+            target.position = new UnityEngine.Vector3(target.position.x, target.position.y - screenHeight, target.position.z);
         }
     }
 
