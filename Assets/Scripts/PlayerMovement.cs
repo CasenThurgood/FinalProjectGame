@@ -3,6 +3,8 @@ using System.Net.Security;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isGrounded;
 
     public InputAction playerControls;
+    public TextMeshProUGUI usernameText;
 
     Vector2 moveDirection = Vector2.zero;
 
@@ -35,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        string username = PlayerPrefs.GetString("username", "Player");
+        usernameText.text = "Welcome, " + username + "!";
         rb = GetComponent<Rigidbody2D>();
         jumpHeight *= 300;
     }
