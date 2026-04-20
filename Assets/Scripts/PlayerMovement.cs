@@ -71,6 +71,23 @@ public class PlayerMovement : MonoBehaviour
         float movement = speedDif * accelRate;
 
         rb.AddForce(movement * Vector2.right);
+
+
+        if (transform.position.y < -100)
+        {
+            transform.position = new Vector3(0,10,0);
+            rb.linearVelocity = Vector2.zero;
+        }
+
+        if (transform.position.x <= -12f)
+        {
+            rb.freezeRotation = false;
+        }
+        else
+        {
+            rb.freezeRotation = true;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 
 }
