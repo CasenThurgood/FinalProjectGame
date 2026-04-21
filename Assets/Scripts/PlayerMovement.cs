@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,8 +19,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight;
 
     [SerializeField] private LayerMask groundLayer;
-    
+    [SerializeField] private LayerMask dieLayer;
     [SerializeField] private bool isGrounded;
+    [SerializeField] public bool isDie;
 
     public InputAction playerControls;
     public TextMeshProUGUI usernameText;
@@ -46,37 +48,45 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, .5f, groundLayer);
-
-        float inputY = playerControls.ReadValue<Vector2>().y;
         
-        if (inputY > 0.01f && isGrounded)
+        if (!isDie)
         {
-            rb.AddForce(new Vector2(rb.linearVelocity.x, jumpHeight));
-            isGrounded = false;
+            isGrounded = Physics2D.Raycast(transform.position, Vector2.down, .5f, groundLayer);
+            isDie = Physics2D.Raycast(transform.position, Vector2.down, .5f, dieLayer);
+
+            float inputY = playerControls.ReadValue<Vector2>().y;
+            
+            if (inputY > 0.01f && isGrounded)
+            {
+                rb.AddForce(new Vector2(rb.linearVelocity.x, jumpHeight));
+                isGrounded = false;
+            }
+            
+            float input = playerControls.ReadValue<Vector2>().x;
+
+            // target speed
+            float targetSpeed = input * maxSpeed;
+
+            // difference between current and target
+            float speedDif = targetSpeed - rb.linearVelocityX;
+
+            // acceleration rate
+            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? moveSpeed : friction;
+
+            // calculate force
+            float movement = speedDif * accelRate;
+
+            rb.AddForce(movement * Vector2.right);
+
         }
-        
-        float input = playerControls.ReadValue<Vector2>().x;
 
-        // target speed
-        float targetSpeed = input * maxSpeed;
-
-        // difference between current and target
-        float speedDif = targetSpeed - rb.linearVelocityX;
-
-        // acceleration rate
-        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? moveSpeed : friction;
-
-        // calculate force
-        float movement = speedDif * accelRate;
-
-        rb.AddForce(movement * Vector2.right);
-
-
-        if (transform.position.y < -100)
+        if (transform.position.y < -100 || isDie)
         {
-            transform.position = new Vector3(0,10,0);
-            rb.linearVelocity = Vector2.zero;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            
+            StartCoroutine(AnimationWait());
+
+            
         }
 
         if (transform.position.x <= -12f)
@@ -88,6 +98,16 @@ public class PlayerMovement : MonoBehaviour
             rb.freezeRotation = true;
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
+    }
+
+
+    IEnumerator AnimationWait()
+    {
+        yield return new WaitForSeconds(1f);
+        transform.position = new Vector3(0,-1.16002f,0);
+        isDie = false;
+        rb.linearVelocity = Vector2.zero;
+        rb.constraints = RigidbodyConstraints2D.None;
     }
 
 }

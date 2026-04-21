@@ -1,11 +1,14 @@
 
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections;
+
 
 public class CameraMove : MonoBehaviour
 {
 
     public Transform playerPosition;
+    public PlayerMovement playerScript;
     public Transform cameraPosition;
 
     public float localPosX;
@@ -66,7 +69,22 @@ public class CameraMove : MonoBehaviour
 
     void LateUpdate() 
     {
-        Vector3 targetPosition = target.position + offset;
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+        if(!playerScript.isDie)
+        {
+            Vector3 targetPosition = target.position + offset;
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+        }
+        else
+        {
+            StartCoroutine(AnimationWait());
+            
+        }
+    }
+
+    IEnumerator AnimationWait()
+    {
+        yield return new WaitForSeconds(1f);
+        Vector3 targetPosition = new Vector3(0, 0, -10);
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, 0f);
     }
 }
