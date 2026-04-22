@@ -69,7 +69,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (scoreText != null)
         {
-            scoreText.text = "Score: " + CurrentScore;
+            scoreText.text = CurrentScore.ToString();
         }
 
         if (highScoreText != null)
