@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 708795809477052026}
   - component: {fileID: 1270678132669787668}
   - component: {fileID: 4178564537776912029}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: slime
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

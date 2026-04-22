@@ -57,7 +57,7 @@ public class EnemyProjectiles : MonoBehaviour
         }
         else
         {
-            transform.position = direction.normalized * speed * Time.deltaTime;
+            //transform.position = direction.normalized * speed * Time.deltaTime;
         }
     }
     
