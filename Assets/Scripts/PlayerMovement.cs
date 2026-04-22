@@ -20,8 +20,10 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask dieLayer;
+    [SerializeField] private LayerMask ladderLayer;
     [SerializeField] private bool isGrounded;
     [SerializeField] public bool isDie;
+    [SerializeField] private bool onLadder;
 
     public InputAction playerControls;
     public TextMeshProUGUI usernameText;
@@ -56,10 +58,14 @@ public class PlayerMovement : MonoBehaviour
 
             float inputY = playerControls.ReadValue<Vector2>().y;
             
-            if (inputY > 0.01f && isGrounded)
+            if (inputY > 0.01f && isGrounded && !onLadder)
             {
                 rb.AddForce(new Vector2(rb.linearVelocity.x, jumpHeight));
                 isGrounded = false;
+            }
+            else if (onLadder)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocityX, inputY * moveSpeed);
             }
             
             float input = playerControls.ReadValue<Vector2>().x;
@@ -85,8 +91,6 @@ public class PlayerMovement : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             
             StartCoroutine(AnimationWait());
-
-            
         }
 
         if (transform.position.x <= -12f)
@@ -115,6 +119,26 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Projectile"))
         {
             isDie = true;
+        }
+
+        
+    }
+
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ladder"))
+        {
+            rb.gravityScale = 0;
+            onLadder = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ladder"))
+        {
+            rb.gravityScale = 2;
+            onLadder = false;
         }
     }
 }
