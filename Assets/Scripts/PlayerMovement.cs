@@ -110,4 +110,11 @@ public class PlayerMovement : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.None;
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Projectile"))
+        {
+            isDie = true;
+        }
+    }
 }
