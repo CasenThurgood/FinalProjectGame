@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isGrounded;
     [SerializeField] public bool isDie;
     [SerializeField] private bool onLadder;
+    [SerializeField] private float teleportDistance = 7f;
 
     public InputAction playerControls;
     public TextMeshProUGUI usernameText;
@@ -124,6 +125,13 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Teleport"))
+        {
+            transform.position += new Vector3(0, teleportDistance, 0);
+        }
+    }
     void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ladder"))
