@@ -426,20 +426,6 @@ MonoBehaviour:
   maxSpeed: 8
   friction: 10
   rb: {fileID: 170917355}
-  jumpHeight: 1.5
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  dieLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  ladderLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  isGrounded: 0
-  isDie: 0
-  onLadder: 0
-  teleportDistance: 7
   playerControls:
     m_Name: Player Controls
     m_Type: 0
@@ -489,6 +475,21 @@ MonoBehaviour:
       m_Action: Player Controls
       m_Flags: 8
     m_Flags: 0
+  jumpHeight: 1.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  dieLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  ladderLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isGrounded: 0
+  isDie: 0
+  onLadder: 0
+  teleportDistance: 7
+  animator: {fileID: 954506765}
   usernameText: {fileID: 285944030}
 --- !u!1 &183824968
 GameObject:
@@ -95077,6 +95078,7 @@ GameObject:
   m_Component:
   - component: {fileID: 954506764}
   - component: {fileID: 954506762}
+  - component: {fileID: 954506765}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -95158,6 +95160,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 170917354}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &954506765
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954506760}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 94685c729b0afd940a0903ab5e99f495, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &966387112 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5344126958632660545, guid: 18985f281d844354f96b897f69b211f1, type: 3}

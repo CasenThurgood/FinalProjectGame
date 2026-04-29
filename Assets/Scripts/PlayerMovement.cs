@@ -14,7 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxSpeed;
     [SerializeField] private float friction;
     [SerializeField] private Rigidbody2D rb;
-    
+    public InputAction playerControls;
+
     [Header("Jumping")]
     [SerializeField] private float jumpHeight;
 
@@ -23,10 +24,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask ladderLayer;
     [SerializeField] private bool isGrounded;
     [SerializeField] public bool isDie;
+
+    [Header("Ladder")]
     [SerializeField] private bool onLadder;
     [SerializeField] private float teleportDistance = 7f;
 
-    public InputAction playerControls;
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
+
+    
+    
+    [Header("UI")]
     public TextMeshProUGUI usernameText;
 
     Vector2 moveDirection = Vector2.zero;
@@ -85,12 +93,27 @@ public class PlayerMovement : MonoBehaviour
 
             rb.AddForce(movement * Vector2.right);
 
+            if (input > 0.01f)
+            {
+                animator.SetBool("isRunning", true);
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (input < -0.01f)
+            {
+                animator.SetBool("isRunning", true);
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            else
+            {
+                animator.SetBool("isRunning", false);
+            }
+
         }
 
         if (transform.position.y < -100 || isDie)
         {
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            
+            animator.SetBool("dead", true);
             StartCoroutine(AnimationWait());
         }
 
@@ -113,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
         isDie = false;
         rb.linearVelocity = Vector2.zero;
         rb.constraints = RigidbodyConstraints2D.None;
+        animator.SetBool("dead", false);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
