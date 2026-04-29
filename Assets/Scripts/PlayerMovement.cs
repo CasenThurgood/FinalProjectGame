@@ -39,6 +39,11 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 moveDirection = Vector2.zero;
 
+    [Header("Lever")]
+    [SerializeField] private Animator leverAnimator;
+    public bool leverPulled = false;
+    [SerializeField] private GameObject door;
+
     private void OnEnable()
     {
         playerControls.Enable();
@@ -171,6 +176,12 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.gravityScale = 2;
             onLadder = false;
+        }
+        if (collision.gameObject.CompareTag("Lever"))
+        {
+            leverPulled = true;
+            leverAnimator.SetBool("pulled", true);
+            door.SetActive(false);
         }
     }
 }

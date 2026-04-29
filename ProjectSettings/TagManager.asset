@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Projectile
   - Ladder
+  - Teleport
+  - Lever
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - Sky
   - Death
   - Ladder
-  - 
+  - Interactable
   - 
   - 
   - 
